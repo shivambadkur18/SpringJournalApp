@@ -23,7 +23,7 @@ public class UserService {
     @Autowired
     private UserRepo userRepo ;
 
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
+    private  PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
 
     public List<User> getAll() {
         return userRepo.findAll();
@@ -34,7 +34,8 @@ public class UserService {
     }
 
     public void createUser(User u ) {
-        u.setPassword(passwordEncoder.encode(u.getPassword()));
+       u.setPassword(passwordEncoder.encode(u.getPassword()));
+      //  u.setPassword(u.getPassword());
         u.setRoles(Arrays.asList("USER"));
         userRepo.save(u);
     }
