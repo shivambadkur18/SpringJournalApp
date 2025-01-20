@@ -4,16 +4,12 @@ import com.example.journalApp.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -96,26 +92,22 @@ public class SpringSecurity {
 
         http .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-       return  http.csrf(c -> c.disable())
-        .authorizeHttpRequests(request -> request
+       return  http.authorizeHttpRequests(request -> request
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/journal/**", "/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
-              // .csrf(customizer -> customizer.disable())
+
                .httpBasic(Customizer.withDefaults())
-               //.httpBasic(withDefaults())
-               // .csrf(customizer -> customizer.disable())
-                .build();
+                 .build();
                 //.formLogin(Customizer.withDefaults())
-              // return  http.build();
+
     }
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-      //  auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
 
@@ -124,13 +116,7 @@ public class SpringSecurity {
         return new BCryptPasswordEncoder();
     }
 
-   /* @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(new BCryptPasswordEncoder());
-        provider.setUserDetailsService(userDetailsService);
-        return provider;
-    }*/
+
 }
 
 
