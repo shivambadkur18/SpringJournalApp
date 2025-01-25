@@ -97,11 +97,8 @@ public class SpringSecurity {
                         .requestMatchers("/journal/**", "/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
-
-               .httpBasic(Customizer.withDefaults())
+                 .httpBasic(Customizer.withDefaults())
                  .build();
-                //.formLogin(Customizer.withDefaults())
-
     }
 
 
