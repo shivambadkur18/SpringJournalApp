@@ -1,5 +1,4 @@
 package com.example.journalApp.controller;
-
 import com.example.journalApp.entity.User;
 import com.example.journalApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +28,6 @@ public class AdminController {
     public void ceateUserAdmin(@RequestBody User user){
         userService.saveAdmin(user) ;
     }
-
-
-
-
 
 
 }
