@@ -27,7 +27,6 @@ public class JournalEntryService {
         return journalRepo.findAll();
     }
 
-
     @Transactional
     public void saveEntry(journalEntry m, String userName) {
         try {
