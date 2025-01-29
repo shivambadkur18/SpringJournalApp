@@ -22,6 +22,7 @@ public class JournalEntryService {
     @Autowired
     UserService userService ;
 
+
     public List<journalEntry> getAll() {
         return journalRepo.findAll();
     }
@@ -35,6 +36,7 @@ public class JournalEntryService {
             user.getJournalEntries().add(saved );
             userService.saveEntry(user);
         }
+
         catch (Exception e ){
             System.out.println(e);
             throw new RuntimeException("an error occured while saving entry." , e ) ;
@@ -48,13 +50,26 @@ public class JournalEntryService {
         return journalRepo.findById(prodId);
     }
 
-    public void deleteById(ObjectId prodId, String userName) {
-        User user = userService.findByUserByName(userName) ;
-        user.getJournalEntries().removeIf(x -> x.getId().equals(prodId) );
-        userService.saveEntry(user);
-        journalRepo.deleteById(prodId);
-
+    @Transactional
+    public boolean deleteById(ObjectId prodId, String userName) {
+        boolean removed = false ;
+        try {
+            User user = userService.findByUserByName(userName);
+             removed = user.getJournalEntries().removeIf(x -> x.getId().equals(prodId));
+            if (removed) {
+                userService.saveEntry(user);
+                journalRepo.deleteById(prodId);
+            }
+        }
+        catch (Exception e ){
+            System.out.println(e);
+            throw new RuntimeException("An errror occured while deleting the entry ");
+        }
+        return removed ;
     }
+   /* public List<journalEntry> findByUserName(String userName){
+
+    }*/
 
 
 
