@@ -35,12 +35,16 @@ public class SpringSecurity {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
 
- 
-                .httpBasic(Customizer.withDefaults())
-                .build();
-                //.formLogin(Customizer.withDefaults(); 
+                 .httpBasic(Customizer.withDefaults())
+                 .build();
+
 
  
+              
+  
+
+ 
+
     }
 
     @Autowired
