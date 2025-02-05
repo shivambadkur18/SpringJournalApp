@@ -37,12 +37,11 @@ public class SpringSecurity {
                         .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
-                //.formLogin(Customizer.withDefaults();
+
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-      //  auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 

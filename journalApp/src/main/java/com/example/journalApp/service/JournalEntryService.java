@@ -2,6 +2,7 @@ package com.example.journalApp.service;
 import com.example.journalApp.entity.User;
 import com.example.journalApp.repo.JournalRepo;
 import com.example.journalApp.entity.journalEntry;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @Component
+@Slf4j
 public class JournalEntryService {
 
     @Autowired
@@ -61,14 +63,12 @@ public class JournalEntryService {
             }
         }
         catch (Exception e ){
-            System.out.println(e);
+           log.error("error");
             throw new RuntimeException("An errror occured while deleting the entry ");
         }
         return removed ;
     }
-   /* public List<journalEntry> findByUserName(String userName){
 
-    }*/
 
 
 
