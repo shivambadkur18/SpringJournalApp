@@ -31,6 +31,17 @@ public class journalEntryController {
     @Autowired
     private UserService userService ;
 
+
+   /* @GetMapping{"/GetAll"}
+    public ResponseEntity<?> getAll(){
+
+        
+
+
+        return new ResponseEntity<>(HttpStatus.OK) ;
+    }*/
+
+
     @GetMapping
     public ResponseEntity<?> getAllJournalEntriesOfUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

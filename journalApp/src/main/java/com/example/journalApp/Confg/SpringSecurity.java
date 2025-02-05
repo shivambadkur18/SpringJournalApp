@@ -29,20 +29,25 @@ public class SpringSecurity {
 
         http .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-       return  http.csrf(c -> c.disable())
-        .authorizeHttpRequests(request -> request
+       return  http.authorizeHttpRequests(request -> request
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/journal/**", "/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults())
-                .build();
+
+
+                 .httpBasic(Customizer.withDefaults())
+                 .build();
+
+
 
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
     }
 
     @Bean
