@@ -2,6 +2,7 @@ package com.example.journalApp.service;
 import com.example.journalApp.entity.User;
 import com.example.journalApp.repo.JournalRepo;
 import com.example.journalApp.entity.journalEntry;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @Component
+@Slf4j
 public class JournalEntryService {
 
     @Autowired
@@ -22,10 +24,10 @@ public class JournalEntryService {
     @Autowired
     UserService userService ;
 
+
     public List<journalEntry> getAll() {
         return journalRepo.findAll();
     }
-
 
     @Transactional
     public void saveEntry(journalEntry m, String userName) {
@@ -35,6 +37,7 @@ public class JournalEntryService {
             user.getJournalEntries().add(saved );
             userService.saveEntry(user);
         }
+
         catch (Exception e ){
             System.out.println(e);
             throw new RuntimeException("an error occured while saving entry." , e ) ;
@@ -48,13 +51,24 @@ public class JournalEntryService {
         return journalRepo.findById(prodId);
     }
 
-    public void deleteById(ObjectId prodId, String userName) {
-        User user = userService.findByUserByName(userName) ;
-        user.getJournalEntries().removeIf(x -> x.getId().equals(prodId) );
-        userService.saveEntry(user);
-        journalRepo.deleteById(prodId);
-
+    @Transactional
+    public boolean deleteById(ObjectId prodId, String userName) {
+        boolean removed = false ;
+        try {
+            User user = userService.findByUserByName(userName);
+             removed = user.getJournalEntries().removeIf(x -> x.getId().equals(prodId));
+            if (removed) {
+                userService.saveEntry(user);
+                journalRepo.deleteById(prodId);
+            }
+        }
+        catch (Exception e ){
+           log.error("error");
+            throw new RuntimeException("An errror occured while deleting the entry ");
+        }
+        return removed ;
     }
+
 
 
 

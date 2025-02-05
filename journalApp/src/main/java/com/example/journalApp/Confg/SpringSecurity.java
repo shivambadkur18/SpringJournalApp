@@ -35,21 +35,19 @@ public class SpringSecurity {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
 
+
                  .httpBasic(Customizer.withDefaults())
                  .build();
 
 
- 
-              
-  
-
- 
 
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+
     }
 
     @Bean
