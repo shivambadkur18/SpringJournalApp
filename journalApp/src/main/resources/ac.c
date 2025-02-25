@@ -1,9 +1,1 @@
-/* this is default applicatio.properties file renamed to => ac.c
-spring.data.mongodb.uri=mongodb+srv://shvmbadkur:ShivamDATABASE@cluster0.nbdf8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-spring.data.mongodb.database=journaldb
-spring.data.mongodb.auto-index-creation=true
-spring.main.allow-circular-references=true
-server.port=8080
-logging.level.com.example.journalApp=DEBUG
 
-#logging.level.com.example.journalApp.service.UserService=OFF*/
