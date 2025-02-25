@@ -1,0 +1,36 @@
+spring:
+  redis :
+    uri : redis-16849.crce179.ap-south-1-1.ec2.redns.redis-cloud.com
+    port: 16849
+    password : mPXc41JwXYf4VbTEOJTpkqXWF7meXYDq
+  data:
+    mongodb:
+      uri: mongodb+srv://shvmbadkur:ShivamDATABASE@cluster0.nbdf8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: journaldb
+      auto-index-creation: true
+  main:
+    allow-circular-references: true
+  mail :
+    host : smtp.gmail.com
+    port : 587
+    username : sbadkur90@gmail.com
+    password : mayn cumh kfbm jxim
+    properties :
+      mail :
+        smtp :
+          auth : true
+          starttls :
+            enable : true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com:
+      example:
+        journalApp: DEBUG
+
+weather:
+  api:
+    key: b1e7c7a70181477aec71ee4ea9ecf25a
